@@ -5,7 +5,6 @@ import com.bootcamp.banking.products.domain.dto.ProductRequest;
 import com.bootcamp.banking.products.domain.models.Product;
 import com.bootcamp.banking.products.infraestructure.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

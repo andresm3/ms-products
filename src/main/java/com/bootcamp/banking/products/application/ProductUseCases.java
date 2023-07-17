@@ -2,7 +2,6 @@ package com.bootcamp.banking.products.application;
 
 import com.bootcamp.banking.products.domain.dto.ProductRequest;
 import com.bootcamp.banking.products.domain.models.Product;
-import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

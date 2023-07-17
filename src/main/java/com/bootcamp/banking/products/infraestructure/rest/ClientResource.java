@@ -3,7 +3,6 @@ package com.bootcamp.banking.products.infraestructure.rest;
 import com.bootcamp.banking.products.application.ProductUseCases;
 import com.bootcamp.banking.products.domain.models.Product;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
