@@ -1,46 +1,32 @@
 package com.bootcamp.banking.products.infraestructure.rest;
 
-import com.bootcamp.banking.products.infraestructure.repository.ProductRepository;
-import com.bootcamp.banking.products.infraestructure.repository.dao.ProductDao;
-import com.bootcamp.banking.products.infraestructure.rest.dto.Product;
+import com.bootcamp.banking.products.application.ProductUseCases;
+import com.bootcamp.banking.products.domain.models.Product;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
-
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/clients")
 public class ClientResource {
-    private final ProductRepository productRepository;
-    // private final WebClient webClient;
 
-    @GetMapping("/{clientId}/products")
-    public Flux<Product> getProductsByClient(@PathVariable String clientId) {
-        return productRepository.findByClientId(clientId)
-                .map(this::fromProductDaoToProductDto);
-    }
+  private final ProductUseCases productUseCases;
 
-    @GetMapping("/{clientId}/products/")
-    public Flux<Product> getProductsByClientAndProductType(@PathVariable String clientId, @RequestParam String productType) {
-        return productRepository.findByClientIdAndProductType(clientId, productType)
-                .map(this::fromProductDaoToProductDto);
-    }
+  @GetMapping("/{clientId}/products")
+  public Flux<Product> getProductsByClient(@PathVariable String clientId) {
+    return productUseCases.getProductsByClient(clientId);
+  }
 
-    private Product fromProductDaoToProductDto(ProductDao dao) {
-        Product product = new Product();
-        product.setId(dao.getId());
-        product.setProductName(dao.getProductName());
-        product.setProductType(dao.getProductType());
-        product.setCardNumber(dao.getCardNumber());
-        product.setMonthlyFee(dao.getMonthlyFee());
-        product.setTransactionFee(dao.getTransactionFee());
-        product.setTransactionDay(dao.getTransactionDay());
-        product.setTransactionLimit(dao.getTransactionLimit());
-        product.setTransactionFeeAfterLimit(dao.getTransactionFeeAfterLimit());
-        product.setClientId(dao.getClientId());
-        return product;
-    }
+  @GetMapping("/{clientId}/products/")
+  public Flux<Product> getProductsByClientAndProductType(@PathVariable String clientId,
+      @RequestParam String productType) {
+    return productUseCases.getProductsByClientAndProductType(clientId, productType);
+  }
+
 }
